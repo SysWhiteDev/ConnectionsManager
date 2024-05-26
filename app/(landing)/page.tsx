@@ -12,7 +12,7 @@ export default function Home() {
           <div className="relative h-[calc(100dvh-162px)] 2xl:border-x-border 2xl:border-x flex justify-center items-center w-full gap-[35vw]">
             <div className="z-0 left-36 text-text before:top-50% ">
               <p
-                className={`text-6xl text-center leading-tight font-extrabold`}
+                className={`text-4xl md:text-5xl lg:text-6xl text-center leading-tight font-extrabold`}
               >
                 Make{" "}
                 <span className="font-mono underline text-accent">Links</span>{" "}

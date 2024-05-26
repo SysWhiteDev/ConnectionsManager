@@ -80,6 +80,18 @@ export default function QRSettings(): React.JSX.Element {
           />
         </div>
         <div className="rounded-lg overflow-hidden flex flex-col gap-4 shadow bg-accent bg-opacity-5 border border-border p-4">
+          <span className="text-md font-semibold">Connector Type</span>
+          <select
+            value={newQrData?.type}
+            onChange={(e) =>
+              setNewQrData({ ...newQrData, type: e.target.value })
+            }
+          >
+            <option value="qr_code">Qr Code</option>
+            <option value="link">Link</option>
+          </select>
+        </div>
+        <div className="rounded-lg overflow-hidden flex flex-col gap-4 shadow bg-accent bg-opacity-5 border border-border p-4">
           <span className="text-md font-semibold">Target URL</span>
           <input
             type="text"

@@ -42,12 +42,12 @@ export default function DashboardHome(): React.JSX.Element {
                     key={index}
                     className="transition-opacity overflow-hidden cursor-pointer flex flex-col gap-6 p-3 rounded-md border-border bg-secondary hover:bg-opacity-10 bg-opacity-5 border"
                   >
-                    <div className="flex justify-between items-start">
+                    <div className="flex flex-col lg:flex-row lg:justify-between items-start">
                       <div>
                         <p className="font-semibold">{data.name}</p>
                         <p className="text-sm opacity-60">{data.target}</p>
                       </div>
-                      <div className="flex gap-1.5">
+                      <div className="flex mt-1 lg:mt-0 gap-1.5">
                         {data.password !== null && (
                           <span className="text-xs shadow whitespace-nowrap truncate bg-red-500 text-background px-2 py-1 font-bold rounded-full">
                             Password protected
@@ -107,12 +107,12 @@ export default function DashboardHome(): React.JSX.Element {
                     key={index}
                     className="transition-opacity overflow-hidden cursor-pointer flex flex-col gap-6 p-3 rounded-md border-border bg-secondary hover:bg-opacity-10 bg-opacity-5 border"
                   >
-                    <div className="flex justify-between items-start">
+                    <div className="flex flex-col lg:flex-row lg:justify-between items-start">
                       <div>
                         <p className="font-semibold">{data.name}</p>
                         <p className="text-sm opacity-60">{data.target}</p>
                       </div>
-                      <div className="flex gap-1.5">
+                      <div className="flex mt-1 lg:mt-0 gap-1.5">
                         {data.password !== null && (
                           <span className="text-xs shadow bg-red-500 text-background px-2 py-1 font-bold rounded-full">
                             Password protected

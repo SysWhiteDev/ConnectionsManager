@@ -7,8 +7,13 @@ body {
   @apply bg-background;
 }
 
-input {
+input,
+select {
   @apply bg-secondary bg-opacity-5 rounded-md px-2 py-2 w-full border-border border text-text placeholder:text-neutral-600 focus:outline-none;
+}
+
+select:focus option {
+  @apply bg-border text-text border-border border rounded-md;
 }
 
 /* Add custom scrollbar styles */
