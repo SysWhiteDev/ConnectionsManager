@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { createClient } from "@/utils/supabase/client";
 import Link from "next/link";
 
-import { BiSearch } from "react-icons/bi";
+import { BiSearch, BiPlus } from "react-icons/bi";
 export default function DashboardHome(): React.JSX.Element {
   const supabase = createClient();
   const [qrCodes, setQrCodes] = useState<any>([]);
@@ -37,7 +37,7 @@ export default function DashboardHome(): React.JSX.Element {
 
   return (
     <div className="p-4 max-w-7xl mx-auto px-6 text-text">
-      <div className="mb-6 flex items-center gap-3 h-[45px]">
+      <div className="mb-6 flex items-center gap-3">
         <div className="flex items-center gap-1 input !py-0.5 !px-3">
           <BiSearch size={24} className="opacity-60" />
           <input
@@ -48,12 +48,13 @@ export default function DashboardHome(): React.JSX.Element {
             className="bg-transparent border-none"
           />
         </div>
-        {/* <Link
-          className="text-sm whitespace-nowrap flex items-center justify-center border-border border bg-accent hover:bg-opacity-80 text-border h-full px-3 rounded-md"
-          href={"/"}
+        <Link
+          className="text-sm font-semibold  w-auto h-[45px] whitespace-nowrap flex items-center justify-center border-border border bg-accent hover:bg-opacity-80 text-border px-4 rounded-md"
+          href={"/dash/nc"}
         >
-          Add connector
-        </Link> */}
+          <span className="hidden md:block">Add connector</span>
+          <BiPlus className="block md:hidden" size={24} />
+        </Link>
       </div>
 
       <p className="font-semibold mb-2">QR Code Connectors</p>

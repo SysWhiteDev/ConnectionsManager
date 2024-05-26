@@ -56,9 +56,9 @@ export default function QRanalyticsHome() {
     <>
       {!loading ? (
         <div className="transition-all px-6 opacity-100 py-4 text-text">
-          <div className="max-w-7xl mt-4 mx-auto flex lg:flex-row flex-col justify-between gap-3">
+          <div className="max-w-7xl mt-4 mx-auto flex lg:flex-row flex-col justify-between gap-4">
             <div className="flex-1">
-              <p className="text-5xl truncate mb-4">{qrData?.name}</p>
+              <p className="text-5xl truncate pb-3">{qrData?.name}</p>
               <div className="flex mb-4 gap-1.5 overflow-x-auto pb-1 w-full">
                 {qrData?.type === "qr_code" ? (
                   <span className="text-xs shadow flex justify-center items-center whitespace-nowrap bg-accent text-background px-2 py-1 font-bold rounded-full">

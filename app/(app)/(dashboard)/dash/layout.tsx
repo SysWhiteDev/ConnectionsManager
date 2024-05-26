@@ -65,7 +65,7 @@ export default function DashboardLayout({
                     onClick={() => setUserPopup(false)}
                     className="fixed top-0 bottom-0 z-30 right-0 left-0"
                   />
-                  <div className="fixed flex items-center z-30 flex-col shadow left-6 md:left-auto right-6 top-[calc(16px+28px+12px)] bg-border border-border border rounded-md p-4">
+                  <div className="fixed flex items-center z-30 flex-col shadow-black shadow left-4 md:left-auto right-4 top-[calc(16px+28px+12px)] bg-border border-border border rounded-md p-4">
                     <span className="text-xs px-12 text-center mx-auto">
                       {userData?.user?.user_metadata?.email}
                     </span>
@@ -88,54 +88,55 @@ export default function DashboardLayout({
           </div>
         </div>
         <div>
-          {!qrId ? (
-            <div className="pt-6 px-6 overflow-x-auto flex gap-1.5">
-              <Link
-                href={"/dash"}
-                className={`${
-                  path == "/dash"
-                    ? "bg-secondary bg-opacity-20"
-                    : "hover:bg-secondary hover:bg-opacity-10"
-                } transition-all px-3 py-1.5 text-sm rounded whitespace-nowrap`}
-              >
-                Your Connectors
-              </Link>
-              <Link
-                href={"https://github.com/syswhitedev/ConnectionsManager"}
-                target="blank"
-                className={`${
-                  path == "/dash/activity"
-                    ? "bg-secondary bg-opacity-20"
-                    : "hover:bg-secondary hover:bg-opacity-10"
-                } transition-all px-3 py-1.5 text-sm rounded whitespace-nowrap`}
-              >
-                Please star us on GitHub!
-              </Link>
-            </div>
-          ) : (
-            <div className="pt-6 px-6 overflow-x-auto flex gap-1.5">
-              <Link
-                href={`/dash/${qrId}`}
-                className={`${
-                  path == `/dash/${qrId}`
-                    ? "bg-secondary bg-opacity-20"
-                    : "hover:bg-secondary hover:bg-opacity-10"
-                } transition-all px-3 py-1.5 text-sm rounded whitespace-nowrap`}
-              >
-                Overview
-              </Link>
-              <Link
-                href={`/dash/${qrId}/settings`}
-                className={`${
-                  path == `/dash/${qrId}/settings`
-                    ? "bg-secondary bg-opacity-20"
-                    : "hover:bg-secondary hover:bg-opacity-10"
-                } transition-all px-3 py-1.5 text-sm rounded whitespace-nowrap`}
-              >
-                Settings
-              </Link>
-            </div>
-          )}
+          {path !== "/dash/nc" &&
+            (!qrId ? (
+              <div className="pt-6 px-6 overflow-x-auto flex gap-1.5">
+                <Link
+                  href={"/dash"}
+                  className={`${
+                    path == "/dash"
+                      ? "bg-secondary bg-opacity-20"
+                      : "hover:bg-secondary hover:bg-opacity-10"
+                  } transition-all px-3 py-1.5 text-sm rounded whitespace-nowrap`}
+                >
+                  Your Connectors
+                </Link>
+                <Link
+                  href={"https://github.com/syswhitedev/ConnectionsManager"}
+                  target="blank"
+                  className={`${
+                    path == "/dash/activity"
+                      ? "bg-secondary bg-opacity-20"
+                      : "hover:bg-secondary hover:bg-opacity-10"
+                  } transition-all px-3 py-1.5 text-sm rounded whitespace-nowrap`}
+                >
+                  Please star us on GitHub!
+                </Link>
+              </div>
+            ) : (
+              <div className="pt-6 px-6 overflow-x-auto flex gap-1.5">
+                <Link
+                  href={`/dash/${qrId}`}
+                  className={`${
+                    path == `/dash/${qrId}`
+                      ? "bg-secondary bg-opacity-20"
+                      : "hover:bg-secondary hover:bg-opacity-10"
+                  } transition-all px-3 py-1.5 text-sm rounded whitespace-nowrap`}
+                >
+                  Overview
+                </Link>
+                <Link
+                  href={`/dash/${qrId}/settings`}
+                  className={`${
+                    path == `/dash/${qrId}/settings`
+                      ? "bg-secondary bg-opacity-20"
+                      : "hover:bg-secondary hover:bg-opacity-10"
+                  } transition-all px-3 py-1.5 text-sm rounded whitespace-nowrap`}
+                >
+                  Settings
+                </Link>
+              </div>
+            ))}
         </div>
       </div>
       <div className="overflow-x-hidden">{children}</div>
