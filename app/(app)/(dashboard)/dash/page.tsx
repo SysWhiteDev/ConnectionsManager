@@ -3,6 +3,8 @@
 import React, { useEffect, useState } from "react";
 import { createClient } from "@/utils/supabase/client";
 import Link from "next/link";
+
+import { BiSearch } from "react-icons/bi";
 export default function DashboardHome(): React.JSX.Element {
   const supabase = createClient();
   const [qrCodes, setQrCodes] = useState<any>([]);
@@ -30,13 +32,29 @@ export default function DashboardHome(): React.JSX.Element {
     fetchQrCodes();
   }, [supabase.auth]);
 
+  // search bar
+  const [searchFilter, setSearchFilter] = useState<string>("");
+
   return (
     <div className="p-4 px-6 text-text">
+      <div className="mb-6">
+        <div className="flex items-center gap-1 input !py-0.5 !px-3">
+          <BiSearch size={24} className="opacity-60" />
+          <input
+            value={searchFilter}
+            onChange={(e) => setSearchFilter(e.target.value)}
+            placeholder="Search..."
+            type="text"
+            className="bg-transparent border-none"
+          />
+        </div>
+      </div>
+
       <p className="font-semibold mb-2">QR Code Connectors</p>
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-2.5">
         {!isLoading
           ? qrCodes
-              .filter((qr: any) => qr.type === "qr_code")
+              .filter((qr: any) => qr.type === "qr_code" && qr.name.toLowerCase().includes(searchFilter.toLowerCase()))
               .map((data: any, index: number) => {
                 return (
                   <Link
@@ -98,19 +116,18 @@ export default function DashboardHome(): React.JSX.Element {
             ))}
       </div>
       {!isLoading &&
-        qrCodes.filter((qr: any) => qr.type === "qr_code").length === 0 && (
+        qrCodes.filter((qr: any) => qr.type === "qr_code" && qr.name.toLowerCase().includes(searchFilter.toLowerCase())).length === 0 && (
           <div className="w-full flex flex-col bg-accent opacity-95 bg-opacity-5 justify-center items-center h-[150px] border-border border rounded-md">
             <h1 className="font-semibold">
-              You don&apos;t have any link connectors
+              No link connectors found.
             </h1>
-            <p className="text-sm">Did you add any?</p>
           </div>
         )}
       <p className="font-semibold mb-2 mt-6">Link Connectors</p>
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-2.5">
         {!isLoading
           ? qrCodes
-              .filter((qr: any) => qr.type === "link")
+              .filter((qr: any) => qr.type === "link" && qr.name.toLowerCase().includes(searchFilter.toLowerCase()))
               .map((data: any, index: number) => {
                 return (
                   <Link
@@ -172,12 +189,11 @@ export default function DashboardHome(): React.JSX.Element {
             ))}
       </div>
       {!isLoading &&
-        qrCodes.filter((qr: any) => qr.type === "link").length === 0 && (
+        qrCodes.filter((qr: any) => qr.type === "link" && qr.name.toLowerCase().includes(searchFilter.toLowerCase())).length === 0 && (
           <div className="w-full flex flex-col bg-accent  opacity-95 bg-opacity-5 justify-center items-center h-[150px] border-border border rounded-md">
             <h1 className="font-semibold">
-              You don&apos;t have any link connectors
+              No QR Code connectors found.
             </h1>
-            <p className="text-sm">Did you add any?</p>
           </div>
         )}
     </div>
