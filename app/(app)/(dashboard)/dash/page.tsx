@@ -7,6 +7,7 @@ export default function DashboardHome(): React.JSX.Element {
   const supabase = createClient();
   const [qrCodes, setQrCodes] = useState<any>([]);
   const [qrUses, setQrUses] = useState<any>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchQrCodes = async () => {
@@ -24,6 +25,7 @@ export default function DashboardHome(): React.JSX.Element {
       } else {
         setQrUses(qrUsesReq.data);
       }
+      setIsLoading(false);
     };
     fetchQrCodes();
   }, [supabase.auth]);
@@ -32,7 +34,7 @@ export default function DashboardHome(): React.JSX.Element {
     <div className="p-4 px-6 text-text">
       <p className="font-semibold mb-2">QR Code Connectors</p>
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-2.5">
-        {qrCodes.length !== 0 && qrUses.length !== 0
+        {!isLoading
           ? qrCodes
               .filter((qr: any) => qr.type === "qr_code")
               .map((data: any, index: number) => {
@@ -95,9 +97,18 @@ export default function DashboardHome(): React.JSX.Element {
               </div>
             ))}
       </div>
+      {!isLoading &&
+        qrCodes.filter((qr: any) => qr.type === "qr_code").length === 0 && (
+          <div className="w-full flex flex-col bg-accent opacity-95 bg-opacity-5 justify-center items-center h-[150px] border-border border rounded-md">
+            <h1 className="font-semibold">
+              You don&apos;t have any link connectors
+            </h1>
+            <p className="text-sm">Did you add any?</p>
+          </div>
+        )}
       <p className="font-semibold mb-2 mt-6">Link Connectors</p>
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-2.5">
-        {qrCodes.length !== 0 && qrUses.length !== 0
+        {!isLoading
           ? qrCodes
               .filter((qr: any) => qr.type === "link")
               .map((data: any, index: number) => {
@@ -160,6 +171,15 @@ export default function DashboardHome(): React.JSX.Element {
               </div>
             ))}
       </div>
+      {!isLoading &&
+        qrCodes.filter((qr: any) => qr.type === "link").length === 0 && (
+          <div className="w-full flex flex-col bg-accent  opacity-95 bg-opacity-5 justify-center items-center h-[150px] border-border border rounded-md">
+            <h1 className="font-semibold">
+              You don&apos;t have any link connectors
+            </h1>
+            <p className="text-sm">Did you add any?</p>
+          </div>
+        )}
     </div>
   );
 }
