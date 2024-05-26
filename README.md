@@ -1,9 +1,11 @@
 # ConnectionsManager
+ConnectionsManager is a dashboard to create shortened links and get accurate analytics and data on them, users can also lock the links with passwords.
+
 
 ⭐ Star us on GitHub — it motivates us a lot!
 
-## The service is ready to use
-You can find the service ready to use free of charge [here](https://qr.syswhite.dev/)
+## Test it out!
+You can test it out [here](https://qr.syswhite.dev/)
 
 ## Table of contents
 

@@ -1,8 +1,14 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
 import { LuQrCode } from "react-icons/lu";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
+import { createClient } from "@/utils/supabase/client";
+
+import { BiLogOut } from "react-icons/bi";
+
 type DashboardLayoutProps = {
   children: React.ReactNode;
 };
@@ -10,17 +16,77 @@ type DashboardLayoutProps = {
 export default function DashboardLayout({
   children,
 }: DashboardLayoutProps): React.JSX.Element {
+  const supabase = createClient();
   const path = usePathname();
   const qrId = path.match(/\/[^\/]+\/(\d+)/)?.[1];
+  const [userData, setUserData] = React.useState<any>(null);
+
+  const [userPopup, setUserPopup] = React.useState<any>(null);
+  const logOut = async () => {
+    await supabase.auth.signOut();
+    window.location.reload();
+  };
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const res = (await supabase.auth.getUser()).data;
+      console.log(res);
+      setUserData(res);
+    };
+    fetchUser();
+  }, []);
   return (
     <div className="flex flex-col">
       <div className="z-50 pb-4 h-auto overflow-hidden text-text bg-background sticky py-4 shadow border-b border-b-border top-0 right-0 left-0">
-        <div className="flex px-6 items-center gap-3.5">
-          <Link href={"/dash"}>
-            <LuQrCode className="rotate-12 text-primary" size={28} />
-          </Link>
-          <span className="text-border text-md text-lg">{"/"}</span>
-          <span className=" font-semibold">Dashboard</span>
+        <div className="flex px-6 items-center justify-between gap-3.5">
+          <div className="flex items-center gap-3.5">
+            <Link href={"/dash"}>
+              <LuQrCode className="rotate-12 text-primary" size={28} />
+            </Link>
+            <span className="text-border text-md text-lg">{"/"}</span>
+            <span className=" font-semibold">Dashboard</span>
+          </div>
+          <div>
+            <div>
+              <Image
+                onClick={() => setUserPopup(true)}
+                className="rounded-full cursor-pointer hover:opacity-80 z-50 overflow-hidden border-border border"
+                height={28}
+                width={28}
+                src={
+                  userData?.user
+                    ? userData?.user?.user_metadata?.avatar_url
+                    : "/"
+                }
+                alt="Profile Picture"
+              />
+              {userPopup && (
+                <>
+                  <div
+                    onClick={() => setUserPopup(false)}
+                    className="fixed top-0 bottom-0 z-30 right-0 left-0"
+                  />
+                  <div className="fixed flex items-center z-30 flex-col shadow left-6 md:left-auto right-6 top-[calc(16px+28px+12px)] bg-border border-border border rounded-md p-4">
+                    <span className="text-xs px-12 text-center mx-auto">
+                      {userData?.user?.user_metadata?.email}
+                    </span>
+                    <div
+                      onClick={() => logOut()}
+                      className="text-sm w-full hover:opacity-80 cursor-pointer flex items-center justify-between rounded-md px-4 py-2.5 mt-4 bg-black bg-opacity-20"
+                    >
+                      Sign out
+                      <div className="w-[30px] h-[30px] bg-black bg-opacity-40 flex justify-center items-center rounded-full">
+                        <BiLogOut
+                          className="inline-block -translate-x-[2px]"
+                          size={18}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
         </div>
         <div>
           {!qrId ? (
@@ -36,24 +102,15 @@ export default function DashboardLayout({
                 Your Connectors
               </Link>
               <Link
-                href={"/dash/activity"}
+                href={"https://github.com/syswhitedev/ConnectionsManager"}
+                target="blank"
                 className={`${
                   path == "/dash/activity"
                     ? "bg-secondary bg-opacity-20"
                     : "hover:bg-secondary hover:bg-opacity-10"
                 } transition-all px-3 py-1.5 text-sm rounded whitespace-nowrap`}
               >
-                Activity
-              </Link>
-              <Link
-                href={"/dash/domains"}
-                className={`${
-                  path == "/dash/domains"
-                    ? "bg-secondary bg-opacity-20"
-                    : "hover:bg-secondary hover:bg-opacity-10"
-                } transition-all px-3 py-1.5 text-sm rounded whitespace-nowrap`}
-              >
-                Domains
+                Please star us on GitHub!
               </Link>
             </div>
           ) : (

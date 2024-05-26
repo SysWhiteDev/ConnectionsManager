@@ -26,7 +26,7 @@ export default function Home() {
                   Get Started <LuArrowRightCircle size={20} />
                 </Link>
                 <Link
-                  href={"https://github.com/SysWhiteDev"}
+                  href={"https://github.com/syswhitedev/ConnectionsManager"}
                   target="blank"
                   className="transiton-all bg-neutral-800 shadow text-secondary hover:bg-opacity-75 cursor-pointer  rounded-md px-4 py-2.5 flex items-center justify-between gap-2"
                 >

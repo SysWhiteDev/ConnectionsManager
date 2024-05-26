@@ -119,7 +119,7 @@ export default function DashboardHome(): React.JSX.Element {
         qrCodes.filter((qr: any) => qr.type === "qr_code" && qr.name.toLowerCase().includes(searchFilter.toLowerCase())).length === 0 && (
           <div className="w-full flex flex-col bg-accent opacity-95 bg-opacity-5 justify-center items-center h-[150px] border-border border rounded-md">
             <h1 className="font-semibold">
-              No link connectors found.
+              No QR Code connectors found.
             </h1>
           </div>
         )}
@@ -192,7 +192,7 @@ export default function DashboardHome(): React.JSX.Element {
         qrCodes.filter((qr: any) => qr.type === "link" && qr.name.toLowerCase().includes(searchFilter.toLowerCase())).length === 0 && (
           <div className="w-full flex flex-col bg-accent  opacity-95 bg-opacity-5 justify-center items-center h-[150px] border-border border rounded-md">
             <h1 className="font-semibold">
-              No QR Code connectors found.
+              No link connectors found.
             </h1>
           </div>
         )}
