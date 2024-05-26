@@ -36,8 +36,8 @@ export default function DashboardHome(): React.JSX.Element {
   const [searchFilter, setSearchFilter] = useState<string>("");
 
   return (
-    <div className="p-4 px-6 text-text">
-      <div className="mb-6">
+    <div className="p-4 max-w-7xl mx-auto px-6 text-text">
+      <div className="mb-6 flex items-center gap-3 h-[45px]">
         <div className="flex items-center gap-1 input !py-0.5 !px-3">
           <BiSearch size={24} className="opacity-60" />
           <input
@@ -48,13 +48,23 @@ export default function DashboardHome(): React.JSX.Element {
             className="bg-transparent border-none"
           />
         </div>
+        {/* <Link
+          className="text-sm whitespace-nowrap flex items-center justify-center border-border border bg-accent hover:bg-opacity-80 text-border h-full px-3 rounded-md"
+          href={"/"}
+        >
+          Add connector
+        </Link> */}
       </div>
 
       <p className="font-semibold mb-2">QR Code Connectors</p>
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-2.5">
+      <div className="grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-2.5">
         {!isLoading
           ? qrCodes
-              .filter((qr: any) => qr.type === "qr_code" && qr.name.toLowerCase().includes(searchFilter.toLowerCase()))
+              .filter(
+                (qr: any) =>
+                  qr.type === "qr_code" &&
+                  qr.name.toLowerCase().includes(searchFilter.toLowerCase())
+              )
               .map((data: any, index: number) => {
                 return (
                   <Link
@@ -116,18 +126,24 @@ export default function DashboardHome(): React.JSX.Element {
             ))}
       </div>
       {!isLoading &&
-        qrCodes.filter((qr: any) => qr.type === "qr_code" && qr.name.toLowerCase().includes(searchFilter.toLowerCase())).length === 0 && (
+        qrCodes.filter(
+          (qr: any) =>
+            qr.type === "qr_code" &&
+            qr.name.toLowerCase().includes(searchFilter.toLowerCase())
+        ).length === 0 && (
           <div className="w-full flex flex-col bg-accent opacity-95 bg-opacity-5 justify-center items-center h-[150px] border-border border rounded-md">
-            <h1 className="font-semibold">
-              No QR Code connectors found.
-            </h1>
+            <h1 className="font-semibold">No QR Code connectors found.</h1>
           </div>
         )}
       <p className="font-semibold mb-2 mt-6">Link Connectors</p>
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-2.5">
+      <div className="grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-2.5">
         {!isLoading
           ? qrCodes
-              .filter((qr: any) => qr.type === "link" && qr.name.toLowerCase().includes(searchFilter.toLowerCase()))
+              .filter(
+                (qr: any) =>
+                  qr.type === "link" &&
+                  qr.name.toLowerCase().includes(searchFilter.toLowerCase())
+              )
               .map((data: any, index: number) => {
                 return (
                   <Link
@@ -189,11 +205,13 @@ export default function DashboardHome(): React.JSX.Element {
             ))}
       </div>
       {!isLoading &&
-        qrCodes.filter((qr: any) => qr.type === "link" && qr.name.toLowerCase().includes(searchFilter.toLowerCase())).length === 0 && (
+        qrCodes.filter(
+          (qr: any) =>
+            qr.type === "link" &&
+            qr.name.toLowerCase().includes(searchFilter.toLowerCase())
+        ).length === 0 && (
           <div className="w-full flex flex-col bg-accent  opacity-95 bg-opacity-5 justify-center items-center h-[150px] border-border border rounded-md">
-            <h1 className="font-semibold">
-              No link connectors found.
-            </h1>
+            <h1 className="font-semibold">No link connectors found.</h1>
           </div>
         )}
     </div>

@@ -30,7 +30,6 @@ export default function DashboardLayout({
   useEffect(() => {
     const fetchUser = async () => {
       const res = (await supabase.auth.getUser()).data;
-      console.log(res);
       setUserData(res);
     };
     fetchUser();

@@ -1,10 +1,29 @@
 import bcrypt from "bcrypt";
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { createClient } from "@supabase/supabase-js";
+import { use } from "react";
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const SUPABASE_SERVICE_ROLE_SECRET = process.env.SUPABASE_SERVICE_ROLE!;
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_SECRET);
+
+const insertUseEntry = async (request: Request | any, qr_id: string, owner_id: string) => {
+    await supabase
+        .from('qr_uses')
+        .insert([
+            {
+                qr_id, owner_id, user_data: {
+                    user_agent: request.headers.get('User-Agent'),
+                    ip: request.headers.get('X-Forwarded-For') || request?.ip,
+                    screen: {
+                        width: request.headers.get('Screen-Width'),
+                        height: request.headers.get('Screen-Height'),
+                    },
+                }
+            },
+        ])
+        .select()
+}
 
 export async function GET(request: Request) {
     const { searchParams } = new URL(request.url)
@@ -21,12 +40,7 @@ export async function GET(request: Request) {
         .single();
 
     if (qr_code.password === null) {
-        await supabase
-            .from('qr_uses')
-            .insert([
-                { qr_id: qr_code.id, owner_id: qr_code.owner_id },
-            ])
-            .select()
+        insertUseEntry(request, qr_code.id, qr_code.owner_id);
 
         return Response.json({
             id: qr_code?.id,
@@ -61,12 +75,8 @@ export async function POST(request: Request) {
     if (!result) {
         return Response.json({ "error": "Wrong Password" })
     } else {
-        await supabase
-            .from('qr_uses')
-            .insert([
-                { qr_id: qr_code.id, owner_id: qr_code.owner_id },
-            ])
-            .select()
+
+        insertUseEntry(request, qr_code.id, qr_code.owner_id);
 
         return Response.json({
             id: qr_code?.id,

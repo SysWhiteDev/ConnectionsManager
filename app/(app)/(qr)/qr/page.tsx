@@ -9,6 +9,7 @@ import { CgLockUnlock } from "react-icons/cg";
 import Link from "next/link";
 import "./style.css";
 import Spinner from "@/components/Spinner";
+import { headers } from "next/headers";
 
 type qrData = {
   target: string;
@@ -27,7 +28,15 @@ export default function QrPage(): React.JSX.Element {
   const id = useSearchParams().get("id");
 
   const getQrInfo = async () => {
-    const response = await (await fetch(`/api/qr?id=${id}`)).json();
+    const response = await (
+      await fetch(`/api/qr?id=${id}`, {
+        method: "GET",
+        headers: {
+          "Screen-Width": `${window.screen.width}`,
+          "Screen-Height": `${window.screen.height}`,
+        },
+      })
+    ).json();
     if (response?.target !== "") {
       setQrData(response);
     }
@@ -128,7 +137,13 @@ export default function QrPage(): React.JSX.Element {
           </div>
         )}
         <span className="fixed bottom-0 left-[50%] translate-x-[-50%] text-center text-sm mb-2">
-          Powered by <Link className="underline opacity-75" href={"https://qr.syswhite.dev/"}>ConnectionsManager</Link>
+          Powered by{" "}
+          <Link
+            className="underline opacity-75"
+            href={"https://qr.syswhite.dev/"}
+          >
+            ConnectionsManager
+          </Link>
         </span>
       </div>
     </>
