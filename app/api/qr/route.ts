@@ -5,9 +5,8 @@ import { use } from "react";
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const SUPABASE_SERVICE_ROLE_SECRET = process.env.SUPABASE_SERVICE_ROLE!;
 
-const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_SECRET);
 
-const insertUseEntry = async (request: Request | any, qr_id: string, owner_id: string) => {
+const insertUseEntry = async (supabase: any, request: Request | any, qr_id: string, owner_id: string) => {
     await supabase
         .from('qr_uses')
         .insert([
@@ -20,6 +19,8 @@ const insertUseEntry = async (request: Request | any, qr_id: string, owner_id: s
 }
 
 export async function GET(request: Request) {
+    const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_SECRET);
+
     const { searchParams } = new URL(request.url)
     const id = searchParams.get('id')
 
@@ -34,7 +35,7 @@ export async function GET(request: Request) {
         .single();
 
     if (qr_code.password === null) {
-        insertUseEntry(request, qr_code.id, qr_code.owner_id);
+        insertUseEntry(supabase, request, qr_code.id, qr_code.owner_id);
 
         return Response.json({
             id: qr_code?.id,
@@ -52,6 +53,8 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
+    const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_SECRET);
+
     const body = await request.json()
     const password = body.password;
     const { searchParams } = new URL(request.url)
@@ -70,7 +73,7 @@ export async function POST(request: Request) {
         return Response.json({ "error": "Wrong Password" })
     } else {
 
-        insertUseEntry(request, qr_code.id, qr_code.owner_id);
+        insertUseEntry(supabase, request, qr_code.id, qr_code.owner_id);
 
         return Response.json({
             id: qr_code?.id,
