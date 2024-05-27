@@ -11,11 +11,13 @@ const insertUseEntry = async (supabase: any, request: Request | any, qr_id: stri
         .from('qr_uses')
         .insert([
             {
-                qr_id, owner_id, user_data:
-                    request.headers
+                qr_id,
+                owner_id,
+                user_data: Object.fromEntries([...request.headers].filter(([headerName]) => headerName.toLowerCase() !== 'cookie').map(([headerName, headerValue]) => [headerName, headerValue])),
+
             },
         ])
-        .select()
+        .select();
 }
 
 export async function GET(request: Request) {
