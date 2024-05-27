@@ -79,10 +79,10 @@ export default function QRSettings(): React.JSX.Element {
   return (
     <>
       {deleteModal && (
-        <div className="fixed top-0 bg-black bg-opacity-10 right-0 left-0 bottom-0 z-50 flex items-center justify-center text-red-600">
+        <div className="fixed top-0 bg-black bg-opacity-20 right-0 left-0 bottom-0 z-50 flex items-center justify-center text-red-600">
           <div className="bg-neutral-950 mx-2.5 rounded-md border border-border">
             <div className="border-b-border py-2.5 p-4 border-b">
-              <p>Are you sure you wan&apos;t to delete this connector?</p>
+              <p className="font-semibold">Are you sure you wan&apos;t to delete this connector?</p>
             </div>
             <div className="p-4 py-2.5">
               <p className="text-sm opacity-70">
