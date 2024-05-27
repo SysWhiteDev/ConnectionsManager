@@ -12,14 +12,8 @@ const insertUseEntry = async (request: Request | any, qr_id: string, owner_id: s
         .from('qr_uses')
         .insert([
             {
-                qr_id, owner_id, user_data: {
-                    user_agent: request.headers.get('User-Agent'),
-                    ip: request.headers.get('X-Forwarded-For') || request?.ip,
-                    screen: {
-                        width: request.headers.get('Screen-Width'),
-                        height: request.headers.get('Screen-Height'),
-                    },
-                }
+                qr_id, owner_id, user_data:
+                    request.headers
             },
         ])
         .select()

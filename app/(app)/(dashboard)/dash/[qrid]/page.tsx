@@ -84,13 +84,15 @@ export default function QRanalyticsHome() {
               />
             </div>
             <div className="rounded-lg overflow-hidden flex flex-col md:flex-row lg:flex-col gap-4 shadow bg-accent bg-opacity-5 border border-border p-4">
-              <Image
-                width={1000}
-                height={1000}
-                alt="QR Code"
-                src={qrCodeImage}
-                className="w-[400px] mx-auto rounded-md"
-              />
+              {qrCodeImage && (
+                <Image
+                  width={1000}
+                  height={1000}
+                  alt="QR Code"
+                  src={qrCodeImage}
+                  className="w-[400px] mx-auto rounded-md"
+                />
+              )}
 
               <div className="w-full  md:min-w-[400px]">
                 <span className="font-semibold mb-2">URL</span>
