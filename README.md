@@ -21,15 +21,6 @@ ConnectionsManager is a dashboard to create shortened links and get accurate ana
 <br/>
 NOTE: connectors are smart link/qrcodes
 
-## Roadmap
-
-- [ ] Custom domains
-- [ ] Activity logs
-- [ ] Connectors analytics
-- [ ] Connectors sharing
-- [ ] Analytics sharing
-- More to come...
-
 ## API
 
 The folder for API routes it's located in `/app/api`
